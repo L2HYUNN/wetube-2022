@@ -7,7 +7,8 @@
     "url": "git+https://github.com/L2HYUNN/wetube-2022.git"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon --exec babel-node index.js"
   },
   "author": "GreenIdeology",
   "license": "MIT",
@@ -20,6 +21,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.7"
+    "@babel/node": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "nodemon": "^2.0.15"
   }
 }
