@@ -1,5 +1,6 @@
 import express from "express";
 // const express = require("express");
+// #3.1 GET Request
 
 const PORT = 4000;
 
