@@ -9,23 +9,37 @@ const PORT = 4000;
 const app = express();
 const logger = morgan("dev");
 
+const globalRouter = express.Router();
+const userRouter = express.Router();
+const videoRouter = express.Router();
+
+
 const handleHome = (req, res) => {
-    return res.send("We Love MiddleWare");
+    return res.send("Home");
 } 
 
-const handleLogin = (req, res) => {
-    return res.send("Login... ");
+globalRouter.get("/", handleHome);
+
+const handleEdit = (req, res) => { 
+    return res.send("Edit");
 }
 
-const handleProtected = (req, res) => {
-    return res.send("Welcome to the private lounge.")
+userRouter.get("/edit", handleEdit);
+
+const handleWatch = (req, res) => {
+    return res.send("Watch");
 }
+
+videoRouter.get("/watch", handleWatch);
 
 app.use(logger);
 
+app.use("/", globalRouter);
+app.use("/users", userRouter);
+app.use("/videos", videoRouter);
+
 app.get("/", handleHome);
-app.get("/login", handleLogin);
-app.get("/protected", handleProtected);
+
 
 const handleListening = () => {
     console.log(`✅ Server Listening on port http://localhost:${PORT} 🚀`);
