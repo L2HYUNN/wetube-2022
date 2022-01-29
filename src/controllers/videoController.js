@@ -1,5 +1,5 @@
 export const handleHome = (req, res) => {
-    return res.render("home");
+    return res.render("home", {pageTitle: "Home"});
 };
 
 export const handleSearch = (req, res) => {
@@ -10,7 +10,7 @@ export const handleWatch = (req, res) => {
     const id = req.params.id; 
     
     if ( isNaN(+id) === false ) {
-        return res.render("watch");
+        return res.render("watch", {pageTitle: "Watch"});
     } else {
         console.log("Wrong Address: Please write right number");
         return res.redirect("/");
@@ -19,7 +19,7 @@ export const handleWatch = (req, res) => {
 };
 
 export const handleEdit = (req, res) => {
-    return res.render("edit");
+    return res.render("edit", {pageTitle: "Edit"});
 };
 
 export const handleDelete = (req, res) => {
