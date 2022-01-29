@@ -19,8 +19,7 @@ export const handleWatch = (req, res) => {
 };
 
 export const handleEdit = (req, res) => {
-    console.log(req.params);
-    return res.send("Edit");
+    return res.render("edit");
 };
 
 export const handleDelete = (req, res) => {
