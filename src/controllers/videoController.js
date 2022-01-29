@@ -10,7 +10,7 @@ export const handleWatch = (req, res) => {
     const id = req.params.id; 
     
     if ( isNaN(+id) === false ) {
-        return res.send(`Watch the videos #${id}`);
+        return res.render("watch");
     } else {
         console.log("Wrong Address: Please write right number");
         return res.redirect("/");

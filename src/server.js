@@ -15,6 +15,7 @@ const logger = morgan("dev");
 // console.log(process.cwd());
 
 app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
 
 app.use(logger);
 
