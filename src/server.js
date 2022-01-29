@@ -12,6 +12,10 @@ const PORT = 4000;
 const app = express();
 const logger = morgan("dev");
 
+// console.log(process.cwd());
+
+app.set("view engine", "pug");
+
 app.use(logger);
 
 app.use("/", globalRouter);

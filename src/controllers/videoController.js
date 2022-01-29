@@ -1,5 +1,5 @@
 export const handleHome = (req, res) => {
-    return res.send("Home");
+    return res.render("home");
 };
 
 export const handleSearch = (req, res) => {
