@@ -1,5 +1,11 @@
+const fakeUser = {
+    userName: "Nicolas",
+    loggedIn: true,
+};
+
 export const handleHome = (req, res) => {
-    return res.render("home", {pageTitle: "Home"});
+    console.log(fakeUser.loggedIn);
+    return res.render("home", {pageTitle: "Home", fakeUser});
 };
 
 export const handleSearch = (req, res) => {
