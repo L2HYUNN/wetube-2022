@@ -4,8 +4,33 @@ const fakeUser = {
 };
 
 export const handleHome = (req, res) => {
-    console.log(fakeUser.loggedIn);
-    return res.render("home", {pageTitle: "Home", fakeUser});
+    const videos = [
+        {
+            title: "videos #1",
+            rating: 5,
+            comments:2,
+            createdAt: "2 minutes ago",
+            views: 59,
+            id: 1 
+        },
+        {
+            title: "videos #2",
+            rating: 4,
+            comments:5,
+            createdAt: "23 minutes ago",
+            views: 99,
+            id: 2
+        },
+        {
+            title: "videos #3",
+            rating: 1,
+            comments:0,
+            createdAt: "4 minutes ago",
+            views: 29,
+            id: 3
+        }
+    ];
+    return res.render("home", {pageTitle: "Home", fakeUser, videos});
 };
 
 export const handleSearch = (req, res) => {
