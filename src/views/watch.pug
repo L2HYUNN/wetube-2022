@@ -1,4 +1,10 @@
 extends base
+include mixins/video
 
 block content
-    h1 Watch Video!
+    h1 Watching #{video.title}
+    ul
+        if video
+            +video(video)
+        else
+            p Not Found
