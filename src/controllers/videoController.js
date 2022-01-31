@@ -57,12 +57,16 @@ export const handleEdit = (req, res) => {
     const video = videos[id - 1];
     
     if ( isNaN(+id) === false && video !== undefined ) {
-        return res.render("edit", {pageTitle: `Watching ${video.title}`, video, fakeUser});
+        return res.render("edit", {pageTitle: `Editing: ${video.title}`, video, fakeUser});
     } else {
         console.log("Wrong Address: Please check right number");
         return res.redirect("/");
     }
 };
+
+export const handlePostEdit = (req, res) => {
+    
+}
 
 export const handleDelete = (req, res) => {
     console.log(req.params);
