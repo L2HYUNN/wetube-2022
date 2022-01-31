@@ -9,7 +9,7 @@ let videos = [
         rating: 5,
         comments:2,
         createdAt: "2 minutes ago",
-        views: 59,
+        views: 1,
         id: 1 
     },
     {
@@ -53,7 +53,15 @@ export const handleWatch = (req, res) => {
 };
 
 export const handleEdit = (req, res) => {
-    return res.render("edit", {pageTitle: "Edit"});
+    const { id } = req.params; 
+    const video = videos[id - 1];
+    
+    if ( isNaN(+id) === false && video !== undefined ) {
+        return res.render("edit", {pageTitle: `Watching ${video.title}`, video, fakeUser});
+    } else {
+        console.log("Wrong Address: Please check right number");
+        return res.redirect("/");
+    }
 };
 
 export const handleDelete = (req, res) => {
