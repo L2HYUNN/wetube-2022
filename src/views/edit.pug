@@ -3,7 +3,7 @@ include mixins/video
 
 block content
     h4 Change Title of #{video.title}
-    form(action="" method="POST") 
+    form(method="POST") 
         input(name="title" type="text" placeholder="Video Tilte" value=video.title required)
         input(type="submit" value="Save")
     h3 #{video.views === 1 ? `${video.views} view` : `${video.views} views`} 
