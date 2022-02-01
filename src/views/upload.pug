@@ -1,0 +1,9 @@
+extends base
+
+block content 
+    h3 Write Video Info
+    form(method="POST")
+        input(name="title" placeholder="Title" type="text" required)
+        textarea(name="explain" placeholder="Explain" required)
+        input(name="rating" placeholder="Rating" type="range" min="1" max="5" step="1" required)
+        input(name="submit" type="submit" value="Save")

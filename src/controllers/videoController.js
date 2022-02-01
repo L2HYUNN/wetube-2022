@@ -3,6 +3,8 @@ const fakeUser = {
     loggedIn: true,
 };
 
+let id = 3;
+
 let videos = [
     {
         title: "videos #1",
@@ -77,7 +79,17 @@ export const handleDelete = (req, res) => {
 };
 
 export const handleUpload = (req, res) => {
-    return res.send("Upload");
+    return res.render("upload", {pageTitle: "Upload New Video!", fakeUser});
 };
+
+export const handlepostUpload = (req, res) => {
+    id += 1;
+    const { title, explain, rating } = req.body;
+    const comments = Math.floor(Math.random() * 10);
+    const views = Math.floor(Math.random() * 5);
+    const newVideo = { title, explain, rating, comments, views, id};
+    videos.push(newVideo);
+    return res.redirect(`/videos/${id}`);
+}
 
 

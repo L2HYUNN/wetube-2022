@@ -1,7 +1,12 @@
 extends base
 include mixins/video
 
+
+
 block content
+    h1 Upload New Video
+    a(href="videos/upload") Upload &rarr;
+    
     h1 Home!
     ul 
         each info in videos
