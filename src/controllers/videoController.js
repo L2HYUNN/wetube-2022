@@ -83,6 +83,7 @@ export const handleUpload = (req, res) => {
 };
 
 export const handlepostUpload = (req, res) => {
+    // videos.lenght + 1 ( so Awesome )
     id += 1;
     const { title, explain, rating } = req.body;
     const comments = Math.floor(Math.random() * 10);
