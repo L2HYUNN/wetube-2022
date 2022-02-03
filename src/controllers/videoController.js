@@ -34,13 +34,9 @@ let videos = [
 
 import Video from "../models/Video";
 
-export const handleHome = (req, res) => {
-    Video.find({},(err, videos) => {
-        console.log("err", err);
-        console.log("videos", videos);
-        return res.render("home", {pageTitle: "Home", fakeUser, videos});
-    });
-    
+export const handleHome = async(req, res) => {
+    const videos = await Video.find({});
+    return res.render("home", {pageTitle: "Home", fakeUser, videos});
 };
 
 export const handleSearch = (req, res) => {
