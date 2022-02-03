@@ -1,7 +1,7 @@
 // mongoose 설정하기 
 import mongoose from "mongoose";
 
-const URL = "mongodb://127.0.0.1:27017/wetube";
+const URL = "mongodb://127.0.0.1:27017/wetube2022";
 
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
 

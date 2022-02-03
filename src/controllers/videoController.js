@@ -35,7 +35,12 @@ let videos = [
 import Video from "../models/Video";
 
 export const handleHome = (req, res) => {
-    return res.render("home", {pageTitle: "Home", fakeUser, videos});
+    Video.find({},(err, videos) => {
+        console.log("err", err);
+        console.log("videos", videos);
+        return res.render("home", {pageTitle: "Home", fakeUser, videos});
+    });
+    
 };
 
 export const handleSearch = (req, res) => {
