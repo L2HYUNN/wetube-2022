@@ -32,6 +32,7 @@ let videos = [
     }
 ];
 
+import Video from "../models/Video";
 
 export const handleHome = (req, res) => {
     return res.render("home", {pageTitle: "Home", fakeUser, videos});
