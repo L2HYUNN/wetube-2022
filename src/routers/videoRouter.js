@@ -6,10 +6,10 @@ const videoRouter = express.Router();
 
 videoRouter.route("/upload").get(handleUpload).post(handlepostUpload);
 
-videoRouter.get("/:id(\\d+)", handleWatch);
+videoRouter.get("/:id([0-9a-f]{24})", handleWatch);
 
-videoRouter.route("/:id(\\d+)/edit").get(handleEdit).post(handlePostEdit);
+videoRouter.route("/:id([0-9a-f]{24})/edit").get(handleEdit).post(handlePostEdit);
 
-videoRouter.get("/:id(\\d+)/delete", handleDelete);
+videoRouter.get("/:id([0-9a-f]{24})/delete", handleDelete);
 
 export default videoRouter;

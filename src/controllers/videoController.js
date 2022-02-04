@@ -10,18 +10,13 @@ export const handleSearch = (req, res) => {
     return res.send("Search");
 };
 
-export const handleWatch = (req, res) => {
-    const { id } = req.params; 
-    const video = videos[id - 1];
+export const handleWatch = async(req, res) => {
+    const { id } = req.params;
+    const video = await Video.findById(id);
     
-    if ( isNaN(+id) === false && video !== undefined ) {
-        return res.render("watch", {pageTitle: `Watching ${video.title}`, video, fakeUser});
-    } else {
-        console.log("Wrong Address: Please check right number");
-        return res.redirect("/");
-    }
-    
+    return res.render("watch", {pageTitle: `Watching ${video.title}`, video});
 };
+    
 
 export const handleEdit = (req, res) => {
     const { id } = req.params; 
