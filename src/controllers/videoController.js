@@ -87,7 +87,17 @@ export const handleUpload = (req, res) => {
 export const handlepostUpload = (req, res) => {
     // videos.lenght + 1 ( so Awesome )
     id += 1;
-    const { title, explain, rating } = req.body;
+    const { title, description, rating, hashtags } = req.body;
+    const video = new Video({
+        title,
+        description,
+        createdAt: Date.now(),
+        hashtags,
+        meta: {
+            views: 0,
+            rating: 0,
+        },
+    });
     const comments = Math.floor(Math.random() * 10);
     const views = Math.floor(Math.random() * 5);
     const newVideo = { title, explain, rating, comments, views, id};
