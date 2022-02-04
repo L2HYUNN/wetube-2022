@@ -55,17 +55,20 @@ export const handlepostUpload = async(req, res) => {
     const { title, description, rating, hashtags } = req.body;
     const arrayHashtags = hashtags.split(",");
     const hashtagsRe = arrayHashtags.map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}`);
-    await Video.create({
-        title,
-        description,
-        createdAt: Date.now(),
-        hashtags: hashtagsRe,
-        meta: {
-            views: 0,
-            rating: 0,
-        },
-    });
-
+    try {
+        await Video.create({
+            title,
+            description,
+            hashtags: hashtagsRe,
+        });
+    } catch(e) {
+        return res.render("upload", 
+            { 
+                pageTitle: "Upload New Video!", 
+                error: e._message, 
+            }
+        );
+    }
     return res.redirect(`/`);
 }
 
