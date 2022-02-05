@@ -49,9 +49,10 @@ export const handlePostEdit = async(req, res) => {
     return res.redirect(`/videos/${id}`);
 };
 
-export const handleDelete = (req, res) => {
-    console.log(req.params);
-    return res.send("Delete");
+export const handleDelete = async(req, res) => {
+    const { id } = req.params;
+    await Video.findByIdAndDelete(id);
+    return res.redirect("/");
 };
 
 export const handleUpload = (req, res) => {
