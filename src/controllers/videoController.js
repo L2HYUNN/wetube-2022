@@ -1,12 +1,13 @@
 import Video from "../models/Video";
 
 export const handleHome = async(req, res) => {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ createdAt: "desc" });
     return res.render("home", {pageTitle: "Home", videos});
 };
 
 export const handleSearch = (req, res) => {
-    return res.send("Search");
+    const { keyword } = req.query;
+    return res.render("search", { pageTitle: "Search Video"});
 };
 
 export const handleWatch = async(req, res) => {
