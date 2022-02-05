@@ -44,7 +44,7 @@ export const handlePostEdit = async(req, res) => {
     await Video.findByIdAndUpdate(id, {
         title,
         description,
-        hashtags,
+        hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect(`/videos/${id}`);
 };
@@ -64,7 +64,7 @@ export const handlePostUpload = async(req, res) => {
         await Video.create({
             title,
             description,
-            hashtags,
+            hashtags: Video.formatHashtags(hashtags),
         });
         console.log("Hello");
         return res.redirect("/");
