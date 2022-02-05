@@ -44,7 +44,7 @@ export const handlePostEdit = async(req, res) => {
     await Video.findByIdAndUpdate(id, {
         title,
         description,
-        hashtags: hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}` ),
+        hashtags,
     });
     return res.redirect(`/videos/${id}`);
 };
@@ -58,14 +58,16 @@ export const handleUpload = (req, res) => {
     return res.render("upload", {pageTitle: "Upload New Video!"});
 };
 
-export const handlepostUpload = async(req, res) => {
+export const handlePostUpload = async(req, res) => {
     const { title, description, hashtags } = req.body;
     try {
         await Video.create({
             title,
             description,
-            hashtags: hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}`),
+            hashtags,
         });
+        console.log("Hello");
+        return res.redirect("/");
     } catch(e) {
         return res.render("upload", 
             { 
@@ -74,7 +76,6 @@ export const handlepostUpload = async(req, res) => {
             }
         );
     }
-    return res.redirect(`/`);
 };
 
 
