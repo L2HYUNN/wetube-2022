@@ -2,14 +2,9 @@ extends base
 include mixins/video
 
 block content
-    h4 Change Title of #{video.title}
+    h2 Edit Video 
     form(method="POST") 
-        input(name="title" type="text" placeholder="Video Tilte" value=video.title required)
-        input(type="submit" value="Save")
-    h3 #{video.views === 1 ? `${video.views} view` : `${video.views} views`} 
-    a(href=`/videos/${video.id}`) Watch Video &rarr;
-    ul
-        if video
-            +video(video)
-        else
-            p Not Found
+        input(name="title" placeholder="Title" type="text" value=video.title required)
+        input(name="hashtags" placeholder="Hashtags, separated by comma" type="text" value=video.hashtags.join() required)
+        textarea(name="description" placeholder="Description" required)=video.description
+        input(name="submit" type="submit" value="Save")
