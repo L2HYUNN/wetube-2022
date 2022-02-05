@@ -59,6 +59,7 @@ export const handleUpload = (req, res) => {
 export const handlepostUpload = async(req, res) => {
     const { title, description, } = req.body;
     let { hashtags } = req.body;
+    
     hashtags = hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}`);
     try {
         await Video.create({
