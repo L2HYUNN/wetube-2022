@@ -36,13 +36,15 @@ export const handleEdit = async(req, res) => {
 
 export const handlePostEdit = async(req, res) => {
     const { id } = req.params;
-    const { title, description, } = req.body;
-    let { hashtags } = req.body;
-    hashtags = hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}`);
+    const { title, description, hashtags } = req.body;
+    const video = await Video.exists({ _id: id });
+    if (!video) {
+        return res.render("404", { pageTitle: "Video not found."});
+    }
     await Video.findByIdAndUpdate(id, {
         title,
         description,
-        hashtags,
+        hashtags: hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}` ),
     });
     return res.redirect(`/videos/${id}`);
 };
@@ -57,15 +59,12 @@ export const handleUpload = (req, res) => {
 };
 
 export const handlepostUpload = async(req, res) => {
-    const { title, description, } = req.body;
-    let { hashtags } = req.body;
-    
-    hashtags = hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}`);
+    const { title, description, hashtags } = req.body;
     try {
         await Video.create({
             title,
             description,
-            hashtags,
+            hashtags: hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}`),
         });
     } catch(e) {
         return res.render("upload", 
