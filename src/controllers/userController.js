@@ -14,7 +14,7 @@ export const handlePostJoin = async(req, res) => {
         location
     });
 
-    return res.redirect("/")
+    return res.redirect("/login")
 }
 
 export const handleLogin = (req, res) => {

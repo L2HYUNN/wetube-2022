@@ -9,7 +9,7 @@ export const handleSearch = async(req, res) => {
     const { keyword } = req.query;
     let videos = [];
     if(keyword) {
-         videos = await Video.find({
+        videos = await Video.find({
             title: {
                 $regex: new RegExp(keyword, "i")   
             }
