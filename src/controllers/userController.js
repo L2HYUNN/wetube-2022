@@ -1,6 +1,21 @@
+import User from "../models/User"
+
 export const handleJoin = (req, res) => {
-    return res.send("Join");
+    return res.render("join", {pageTitle: "Join" });
 };
+
+export const handlePostJoin = async(req, res) => {
+    const { name, email, username, password, location } = req.body;
+    await User.create({
+        name,
+        email,
+        username,
+        password,
+        location
+    });
+
+    return res.redirect("/")
+}
 
 export const handleLogin = (req, res) => {
     return res.send("Login");
