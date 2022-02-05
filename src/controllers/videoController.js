@@ -5,9 +5,19 @@ export const handleHome = async(req, res) => {
     return res.render("home", {pageTitle: "Home", videos});
 };
 
-export const handleSearch = (req, res) => {
+export const handleSearch = async(req, res) => {
     const { keyword } = req.query;
-    return res.render("search", { pageTitle: "Search Video"});
+    let videos = [];
+    if(keyword) {
+         videos = await Video.find({
+            title: {
+                $regex: new RegExp(keyword, "i")   
+            }
+        });  
+    } 
+    console.log(videos);
+    return res.render("search", { pageTitle: "Search Video", videos});
+
 };
 
 export const handleWatch = async(req, res) => {
