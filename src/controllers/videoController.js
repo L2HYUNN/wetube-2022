@@ -39,7 +39,7 @@ export const handleEdit = async(req, res) => {
     // need Regexp only letter and number? 
     
     if (!video) {
-        return res.render("404", { pageTitle: "Video not found."});
+        return res.status(404).render("404", { pageTitle: "Video not found."});
     } else {
         return res.render("edit", { pageTitle: `Editing: ${video.title}`, video});
     }
@@ -81,7 +81,7 @@ export const handlePostUpload = async(req, res) => {
         console.log("Hello");
         return res.redirect("/");
     } catch(e) {
-        return res.render("upload", 
+        return res.status(400).render("upload", 
             { 
                 pageTitle: "Upload New Video!", 
                 error: e._message, 

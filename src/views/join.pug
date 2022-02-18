@@ -2,9 +2,11 @@ extends base
 
 block content 
     if userNameErrorMessage
-        span=userNameerrorMessage
+        span=userNameErrorMessage
     if emailNameErrorMessage
-        span=emailNameerrorMessage
+        span=emailNameErrorMessage
+    if passwordErrorMessage
+        span=passwordErrorMessage
     form(method="POST")
         input(name="name", type="text", placeholder="name", required)
         input(name="email", type="email", placeholder="email", required)

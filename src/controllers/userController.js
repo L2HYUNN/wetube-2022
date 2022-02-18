@@ -9,15 +9,15 @@ export const handlePostJoin = async(req, res) => {
     // const exists = await User.exists({ $or: [{username}, {email}] });
     const userNameExists = await User.exists({username});
     if(userNameExists) {
-        return res.render("join", {pageTitle: "Join", userNameErrorMessage: "This username is already taken." });
+        return res.status(400).render("join", {pageTitle: "Join", userNameErrorMessage: "This username is already taken." });
     }
 
     const emailNameExists = await User.exists({email});
     if(emailNameExists) {
-        return res.render("join", {pageTitle: "Join", emailNameErrorMessage: "This email is already taken." });
+        return res.status(400).render("join", {pageTitle: "Join", emailNameErrorMessage: "This email is already taken." });
     }
     if(password1 !== password2) {
-        return res.render("join", {pageTitle: "Join", emailNameErrorMessage: "Password does not match" });
+        return res.status(400).render("join", {pageTitle: "Join", passwordErrorMessage: "Password does not match" });
     }
     await User.create({
         name,
