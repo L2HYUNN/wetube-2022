@@ -25,12 +25,12 @@ app.use(session({
     saveUninitialized: true, 
 }))
 
-// app.use((req, res, next) => {
-//   req.sessionStore.all((error, sessions) => {
-//     console.log(sessions);
-//     next();
-//   })
-// })
+app.use((req, res, next) => {
+  req.sessionStore.all((error, sessions) => {
+    console.log(sessions);
+    next();
+  })
+})
 
 // app.get("/add-one", (req, res, next) => {
 //   console.log(req.session.id)

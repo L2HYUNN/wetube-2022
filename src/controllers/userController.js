@@ -57,7 +57,8 @@ export const handlePostLogin = async(req, res) => {
     if(!passwordExists) {
         return res.status(400).render("login",  {pageTitle: "Login", errorMessage: "Password is Wrong" });
     }
-
+    req.session.loggedIn = true;
+    req.session.user = user;
     console.log("Login Sucess ✅")
     return res.redirect("/")
 };
