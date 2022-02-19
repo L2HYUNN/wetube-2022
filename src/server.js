@@ -25,6 +25,18 @@ app.use(session({
     saveUninitialized: true, 
 }))
 
+// app.use((req, res, next) => {
+//   req.sessionStore.all((error, sessions) => {
+//     console.log(sessions);
+//     next();
+//   })
+// })
+
+// app.get("/add-one", (req, res, next) => {
+//   console.log(req.session.id)
+//   return res.send(`${req.session.id}`);
+// })
+
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
