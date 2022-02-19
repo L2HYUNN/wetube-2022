@@ -1,4 +1,5 @@
-import User from "../models/User"
+import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const handleJoin = (req, res) => {
     return res.render("join", {pageTitle: "Join" });
@@ -19,20 +20,48 @@ export const handlePostJoin = async(req, res) => {
     if(password1 !== password2) {
         return res.status(400).render("join", {pageTitle: "Join", passwordErrorMessage: "Password does not match" });
     }
-    await User.create({
-        name,
-        email,
-        username,
-        password2,
-        location
-    });
-
-    return res.redirect("/login")
+    try {
+        await User.create({
+            name,
+            email,
+            username,
+            password: password2,
+            location
+        });
+        return res.redirect("/login")
+    } catch(e) {
+        return res.status(400).render("join", 
+        { 
+            pageTitle: "Join", 
+            error: e._message, 
+        }
+    );
+    }
+    
 }
 
 export const handleLogin = (req, res) => {
-    return res.send("Login");
+    return res.render("login",  {pageTitle: "Login" });
 };
+
+export const handlePostLogin = async(req, res) => {
+    const { email, password } = req.body;
+    const user = await User.find({ email });
+    const exists = await User.exists({ email });
+    const hashPassword = await bcrypt.hash(password, 5);
+
+    if(!exists) {
+        return res.status(400).render("login",  {pageTitle: "Login", errorMessage: "Not exists user" });
+    }
+
+    if( user.password !== hashPassword ) {
+        return res.status(400).render("login",  {pageTitle: "Login", errorMessage: "Password is Wrong" });
+    }
+    
+    console.log("Login Sucess ✅")
+    return res.redirect("/")
+};
+
 
 export const handleLogout = (req, res) => {
     return res.send("Logout");
