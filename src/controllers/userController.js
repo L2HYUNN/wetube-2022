@@ -46,18 +46,18 @@ export const handleLogin = (req, res) => {
 
 export const handlePostLogin = async(req, res) => {
     const { email, password } = req.body;
-    const user = await User.find({ email });
-    const exists = await User.exists({ email });
-    const hashPassword = await bcrypt.hash(password, 5);
+    const user = await User.findOne({ email });
 
-    if(!exists) {
+    if(!user) {
         return res.status(400).render("login",  {pageTitle: "Login", errorMessage: "Not exists user" });
     }
 
-    if( user.password !== hashPassword ) {
+    const passwordExists = await bcrypt.compare(password, user.password);
+
+    if(!passwordExists) {
         return res.status(400).render("login",  {pageTitle: "Login", errorMessage: "Password is Wrong" });
     }
-    
+
     console.log("Login Sucess ✅")
     return res.redirect("/")
 };
