@@ -23,12 +23,12 @@ app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({extended: true}));
 app.use(session({
-    secret: process.env.COOKIE_SECRET;
+    secret: process.env.COOKIE_SECRET,
     // store: MongoStore.create({ client: connection.client }),
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
     cookie: {
       maxAge: 20000,
-    }
+    },
     resave: false,
     saveUninitialized: false, 
 }))
