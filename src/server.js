@@ -26,8 +26,8 @@ app.use(session({
     secret: "hello",
     // store: MongoStore.create({ client: connection.client }),
     store: MongoStore.create({ mongoUrl: "mongodb://127.0.0.1:27017/wetube2022" }),
-    resave: true,
-    saveUninitialized: true, 
+    resave: false,
+    saveUninitialized: false, 
 }))
 
 // app.use((req, res, next) => {
