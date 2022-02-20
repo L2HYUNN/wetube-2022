@@ -7,7 +7,7 @@ userRouter.get("/logout", handleLogout);
 userRouter.get("/edit", handleEdit);
 userRouter.get("/delete", handleDelete);
 userRouter.get("/github/start", handleStartGithubLogin);
-userRouter.get("/github/finish", handleFinishGithubLogin);
+userRouter.post("/github/finish", handleFinishGithubLogin);
 userRouter.get("/:id", handleId);
 
 export default userRouter;
