@@ -4,6 +4,7 @@ import session from "express-session";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
+import { localsMiddleware } from "./middlewares";
 // const express = require("express");
 // #3.1 GET Request
 // #3.4 Recap
@@ -25,18 +26,19 @@ app.use(session({
     saveUninitialized: true, 
 }))
 
-app.use((req, res, next) => {
-  req.sessionStore.all((error, sessions) => {
-    console.log(sessions);
-    next();
-  })
-})
+// app.use((req, res, next) => {
+//   req.sessionStore.all((error, sessions) => {
+//     console.log(sessions);
+//     next();
+//   })
+// })
 
 // app.get("/add-one", (req, res, next) => {
 //   console.log(req.session.id)
 //   return res.send(`${req.session.id}`);
 // })
 
+app.use(localsMiddleware);
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
