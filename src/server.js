@@ -23,9 +23,12 @@ app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({extended: true}));
 app.use(session({
-    secret: "hello",
+    secret: process.env.COOKIE_SECRET;
     // store: MongoStore.create({ client: connection.client }),
-    store: MongoStore.create({ mongoUrl: "mongodb://127.0.0.1:27017/wetube2022" }),
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+    cookie: {
+      maxAge: 20000,
+    }
     resave: false,
     saveUninitialized: false, 
 }))
