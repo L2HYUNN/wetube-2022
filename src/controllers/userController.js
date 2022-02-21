@@ -160,7 +160,24 @@ export const handleLogout = (req, res) => {
 };
 
 export const handleEdit = (req, res) => {
-  return res.send("Edit");
+  const loggedIn = req.session.loggedIn;
+  if (!loggedIn) {
+    return res.redirect("/");
+  }
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+};
+
+export const handlePostEdit = async (req, res) => {
+  const { name, email, username, location } = req.body;
+  const user = await User.findOneAndUpdate(email, {
+    name,
+    email,
+    username,
+    location,
+  });
+  res.locals.loggedInUser = req.session.user;
+  console.log(res.locals.loggedInUser);
+  return res.redirect("edit-profile");
 };
 
 export const handleDelete = (req, res) => {
