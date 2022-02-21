@@ -11,14 +11,15 @@ html(lang="en")
             h1=pageTitle
             nav 
                 ul 
-                    li 
-                        a(href="/videos/upload") Upload &rarr;
+                    
                     li 
                         a(href="/") Home &rarr; 
                     li 
                         a(href="/search") Search &rarr;
 
                     if loggedIn
+                        li 
+                            a(href="/videos/upload") Upload &rarr;
                         li 
                             a(href="/users/logout") Log Out &rarr; 
                         li 

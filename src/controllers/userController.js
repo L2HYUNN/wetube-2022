@@ -164,14 +164,16 @@ export const handleEdit = (req, res) => {
 };
 
 export const handlePostEdit = async (req, res) => {
-  const { name, email, username, location } = req.body;
+  const {
+    body: { name, email, username, location },
+  } = req;
   const user = await User.findOneAndUpdate(email, {
     name,
     email,
     username,
     location,
   });
-  res.locals.loggedInUser = req.session.user;
+  res.locals.loggedInUser = user;
   console.log(res.locals.loggedInUser);
   return res.redirect("edit-profile");
 };
