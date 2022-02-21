@@ -160,10 +160,6 @@ export const handleLogout = (req, res) => {
 };
 
 export const handleEdit = (req, res) => {
-  const loggedIn = req.session.loggedIn;
-  if (!loggedIn) {
-    return res.redirect("/");
-  }
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 

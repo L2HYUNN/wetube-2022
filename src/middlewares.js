@@ -6,3 +6,19 @@ export const localsMiddleware = (req, res, next) => {
   }
   next();
 };
+
+export const protectorMiddleware = (req, res, next) => {
+  const loggedIn = req.session.loggedIn;
+  if (!loggedIn) {
+    return res.redirect("/login");
+  }
+  next();
+};
+
+export const publicOnlyMiddleware = (req, res, next) => {
+  const loggedIn = req.session.loggedIn;
+  if (loggedIn) {
+    return res.redirect("/");
+  }
+  next();
+};
