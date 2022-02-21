@@ -3,22 +3,22 @@ import mongoose from "mongoose";
 
 // export const formatHashtags = (hashtags) => hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}` );
 
-
 const userSchema = new mongoose.Schema({
-    email: { type: String, required: true, unique: true },
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    name: { type: String, required: true },
-    location: String,
+  email: { type: String, required: true, unique: true },
+  githubId: { type: Number },
+  socialOnly: { type: Boolean, default: false },
+  username: { type: String, required: true, unique: true },
+  password: { type: String },
+  name: { type: String, required: true },
+  location: String,
 });
 
-userSchema.pre('save', async function() {
-    this.password = await bcrypt.hash(this.password, 5);
-    }
-)
+userSchema.pre("save", async function () {
+  this.password = await bcrypt.hash(this.password, 5);
+});
 
 // videoSchema.static('formatHashtags', function(hashtags) {
-    // return hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}` );
+// return hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}` );
 // })
 
 // videoSchema.pre('save', async function(){

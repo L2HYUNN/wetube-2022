@@ -37,6 +37,7 @@ export const handlePostJoin = async (req, res) => {
       username,
       password: password2,
       location,
+      githubId: "",
     });
     return res.redirect("/login");
   } catch (e) {
@@ -125,11 +126,32 @@ export const handleFinishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    const email = emailData.find(
+
+    const emailObj = emailData.find(
       (email) => email.primary === true && email.verified === true
     );
-    if (!eamil) {
+    if (!emailObj) {
       return res.redirect("/login");
+    }
+    const exisitingUser = await User.findOne({ email: emailObj.email });
+    if (exisitingUser) {
+      req.session.loggedIn = true;
+      req.session.user = exisitingUser;
+      return res.redirect("/");
+    } else {
+      const user = await User.create({
+        name: userData.login,
+        email: emailObj.email,
+        username: userData.login,
+        password: "",
+        location: userData.location,
+        githubId: userData.id,
+        socialOnly: true,
+      });
+      console.log(user);
+      req.session.loggedIn = true;
+      req.session.user = user;
+      return res.redirect("/");
     }
   } else {
     return res.redirect("/login");
