@@ -183,6 +183,7 @@ export const handlePostEdit = async (req, res) => {
         username: sessionUsername,
       },
     },
+    file,
   } = req;
 
   let errorMessage = null;

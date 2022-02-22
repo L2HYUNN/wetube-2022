@@ -14,13 +14,19 @@ import {
   protectorMiddleware,
   protectorSocialLogin,
   publicOnlyMiddleware,
+  uploadFiles,
 } from "../middlewares";
 
 const userRouter = express.Router();
 
 userRouter.get("/logout", protectorMiddleware, handleLogout);
 userRouter.get("/edit-profile", protectorMiddleware, handleEdit);
-userRouter.post("/edit-profile", handlePostEdit);
+userRouter.post(
+  "/edit-profile",
+  protectorSocialLogin,
+  uploadFiles.single("avatar"),
+  handlePostEdit
+);
 userRouter.get("/delete", protectorMiddleware, handleDelete);
 userRouter.get("/github/start", publicOnlyMiddleware, handleStartGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, handleFinishGithubLogin);
