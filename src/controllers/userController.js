@@ -163,25 +163,74 @@ export const handleEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 
+const findExistingUser = async (condition) => {
+  const exists = await User.exists(condition);
+  if (exists) {
+    const errorMessage = `Already Existing ${Object.keys(
+      condition
+    )[0].toUpperCase()}`;
+    return errorMessage;
+  }
+};
+
 export const handlePostEdit = async (req, res) => {
   const {
     body: { name, email, username, location },
+    session: {
+      user: {
+        name: sessionName,
+        email: sessionEmail,
+        username: sessionUsername,
+      },
+    },
   } = req;
-  const user = await User.findOneAndUpdate(email, {
-    name,
-    email,
-    username,
-    location,
-  });
-  res.locals.loggedInUser = user;
-  console.log(res.locals.loggedInUser);
-  return res.redirect("edit-profile");
-};
 
-export const handleDelete = (req, res) => {
-  return res.send("Delete");
+  let errorMessage = null;
+
+  if (name !== sessionName) {
+    errorMessage = await findExistingUser({ name });
+  }
+  if (email !== sessionEmail) {
+    errorMessage = await findExistingUser({ email });
+  }
+  if (username !== sessionUsername) {
+    errorMessage = await findExistingUser({ username });
+  }
+
+  if (errorMessage) {
+    return res.render("edit-profile", {
+      pageTitle: "Edit Profile",
+      errorMessage,
+    });
+  } else {
+    const updateUser = await User.findOneAndUpdate(
+      email,
+      {
+        name,
+        email,
+        username,
+        location,
+      },
+      { new: true }
+    );
+
+    req.session.user = updateUser;
+    return res.redirect("/users/edit-profile");
+  }
+
+  // req.session.user = {
+  //   ...req.session.user,
+  //   name,
+  //   email,
+  //   username,
+  //   location,
+  // };
 };
 
 export const handleId = (req, res) => {
   return res.send("Id");
+};
+
+export const handleDelete = (req, res) => {
+  return res.send("Delete");
 };

@@ -4,13 +4,13 @@ import mongoose from "mongoose";
 // export const formatHashtags = (hashtags) => hashtags.split(",").map( (hash) => hash.trim().startsWith("#") ? hash.trim() : `#${hash.trim()}` );
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  avatarUrl: { type: String },
+  email: { type: String, required: true, unique: false },
+  avatarUrl: { type: String, default: null },
   githubId: { type: Number },
   socialOnly: { type: Boolean, default: false },
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: false },
   password: { type: String },
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: false },
   location: String,
 });
 
