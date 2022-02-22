@@ -22,3 +22,15 @@ export const publicOnlyMiddleware = (req, res, next) => {
   }
   next();
 };
+
+export const protectorSocialLogin = (req, res, next) => {
+  const {
+    session: {
+      user: { socialOnly },
+    },
+  } = req;
+  if (socialOnly) {
+    return res.redirect("/");
+  }
+  next();
+};

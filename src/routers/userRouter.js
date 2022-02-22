@@ -10,7 +10,11 @@ import {
   handleChangePassword,
   handlePostChangePassword,
 } from "../controllers/userController";
-import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
+import {
+  protectorMiddleware,
+  protectorSocialLogin,
+  publicOnlyMiddleware,
+} from "../middlewares";
 
 const userRouter = express.Router();
 
@@ -22,6 +26,7 @@ userRouter.get("/github/start", publicOnlyMiddleware, handleStartGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, handleFinishGithubLogin);
 userRouter
   .route("/change-password")
+  .all(protectorSocialLogin)
   .all(protectorMiddleware)
   .get(handleChangePassword)
   .post(handlePostChangePassword);

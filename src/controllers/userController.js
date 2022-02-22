@@ -228,24 +228,50 @@ export const handlePostEdit = async (req, res) => {
 };
 
 export const handleChangePassword = (req, res) => {
-  const {
-    session: {
-      user: { socialOnly },
-    },
-  } = req;
-  if (socialOnly) {
-    return res.redirect("/");
-  }
   return res.render("users/change-password", { pageTitle: "Change Password" });
 };
-export const handlePostChangePassword = (req, res) => {
-  return res.redirect("/users/my-profile");
-};
+export const handlePostChangePassword = async (req, res) => {
+  const { currentPassword, newPassword, newPasswordConfimation } = req.body;
+  const { password: sessionPassword, email } = req.session.user;
+  const passwordExists = await bcrypt.compare(currentPassword, sessionPassword);
 
-export const handleId = (req, res) => {
-  return res.send("Id");
+  if (newPassword !== newPasswordConfimation) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "Check your New Password.",
+    });
+  }
+
+  if (currentPassword === newPassword) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "New Password cant be same Current Password",
+    });
+  }
+
+  if (!passwordExists) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "Check your Current Password.",
+    });
+  }
+  const hashedPassword = await bcrypt.hash(newPassword, 5);
+  await User.findOneAndUpdate(
+    email,
+    {
+      password: hashedPassword,
+    },
+    { new: true }
+  );
+  console.log("Password Changing Success ✅");
+  req.session.destroy();
+  return res.redirect("/login");
 };
 
 export const handleDelete = (req, res) => {
+  return res.send("Delete");
+};
+
+export const handleId = (req, res) => {
   return res.send("Delete");
 };
