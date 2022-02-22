@@ -1,5 +1,5 @@
-extends base
-include mixins/video
+extends ../base
+include ../mixins/video
 
 block content
     h2 Edit Video 
@@ -8,4 +8,5 @@ block content
         input(name="hashtags" placeholder="Hashtags, separated by comma" type="text" value=video.hashtags.join() required)
         textarea(name="description" placeholder="Description" required)=video.description
         input(name="submit" type="submit" value="Save")
+
         

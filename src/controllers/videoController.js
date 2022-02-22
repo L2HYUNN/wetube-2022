@@ -15,8 +15,7 @@ export const handleSearch = async (req, res) => {
       },
     });
   }
-  console.log(videos);
-  return res.render("search", { pageTitle: "Search Video", videos });
+  return res.render("videos/search", { pageTitle: "Search Video", videos });
 };
 
 export const handleWatch = async (req, res) => {
@@ -26,7 +25,10 @@ export const handleWatch = async (req, res) => {
   if (video === null) {
     return res.render("404", { pageTitle: "Video not found." });
   } else {
-    return res.render("watch", { pageTitle: `Watching ${video.title}`, video });
+    return res.render("videos/watch", {
+      pageTitle: `Watching ${video.title}`,
+      video,
+    });
   }
 };
 
@@ -38,7 +40,7 @@ export const handleEdit = async (req, res) => {
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   } else {
-    return res.render("edit-video", {
+    return res.render("videos/edit-video", {
       pageTitle: `Editing: ${video.title}`,
       video,
     });
@@ -67,7 +69,7 @@ export const handleDelete = async (req, res) => {
 };
 
 export const handleUpload = (req, res) => {
-  return res.render("upload", { pageTitle: "Upload New Video!" });
+  return res.render("videos/upload", { pageTitle: "Upload New Video!" });
 };
 
 export const handlePostUpload = async (req, res) => {
@@ -78,10 +80,9 @@ export const handlePostUpload = async (req, res) => {
       description,
       hashtags: Video.formatHashtags(hashtags),
     });
-    console.log("Hello");
     return res.redirect("/");
   } catch (e) {
-    return res.status(400).render("upload", {
+    return res.status(400).render("videos/upload", {
       pageTitle: "Upload New Video!",
       error: e._message,
     });

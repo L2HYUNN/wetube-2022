@@ -160,7 +160,7 @@ export const handleLogout = (req, res) => {
 };
 
 export const handleEdit = (req, res) => {
-  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+  return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 };
 
 const findExistingUser = async (condition) => {
@@ -198,7 +198,7 @@ export const handlePostEdit = async (req, res) => {
   }
 
   if (errorMessage) {
-    return res.render("edit-profile", {
+    return res.render("users/edit-profile", {
       pageTitle: "Edit Profile",
       errorMessage,
     });
@@ -225,6 +225,21 @@ export const handlePostEdit = async (req, res) => {
   //   username,
   //   location,
   // };
+};
+
+export const handleChangePassword = (req, res) => {
+  const {
+    session: {
+      user: { socialOnly },
+    },
+  } = req;
+  if (socialOnly) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+export const handlePostChangePassword = (req, res) => {
+  return res.redirect("/users/my-profile");
 };
 
 export const handleId = (req, res) => {
