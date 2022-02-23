@@ -181,6 +181,7 @@ export const handlePostEdit = async (req, res) => {
         name: sessionName,
         email: sessionEmail,
         username: sessionUsername,
+        avatarUrl,
       },
     },
     file,
@@ -204,9 +205,11 @@ export const handlePostEdit = async (req, res) => {
       errorMessage,
     });
   } else {
+    console.log(file);
     const updateUser = await User.findOneAndUpdate(
       email,
       {
+        avatarUrl: file ? file.path : avatarUrl,
         name,
         email,
         username,

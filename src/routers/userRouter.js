@@ -23,7 +23,7 @@ userRouter.get("/logout", protectorMiddleware, handleLogout);
 userRouter.get("/edit-profile", protectorMiddleware, handleEdit);
 userRouter.post(
   "/edit-profile",
-  protectorSocialLogin,
+  protectorMiddleware,
   uploadFiles.single("avatar"),
   handlePostEdit
 );
