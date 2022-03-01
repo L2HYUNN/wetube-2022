@@ -11,10 +11,10 @@ import {
   handlePostChangePassword,
 } from "../controllers/userController";
 import {
+  avatarUploadFiles,
   protectorMiddleware,
   protectorSocialLogin,
   publicOnlyMiddleware,
-  uploadFiles,
 } from "../middlewares";
 
 const userRouter = express.Router();
@@ -24,7 +24,7 @@ userRouter.get("/edit-profile", protectorMiddleware, handleEdit);
 userRouter.post(
   "/edit-profile",
   protectorMiddleware,
-  uploadFiles.single("avatar"),
+  avatarUploadFiles.single("avatar"),
   handlePostEdit
 );
 userRouter.get("/delete", protectorMiddleware, handleDelete);

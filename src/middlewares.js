@@ -37,6 +37,16 @@ export const protectorSocialLogin = (req, res, next) => {
   next();
 };
 
-export const uploadFiles = multer({
-  dest: "uploads/",
+export const avatarUploadFiles = multer({
+  dest: "uploads/avatars",
+  limits: {
+    fileSize: 3000000,
+  },
+});
+
+export const videoUploadFiles = multer({
+  dest: "uploads/videos",
+  limits: {
+    fileSize: 10000000000,
+  },
 });

@@ -4,7 +4,9 @@ block content
     h2 Upload Video
     if error 
         span=error
-    form(method="POST")
+    form(method="POST" enctype="multipart/form-data")
+        label(for="video") Video
+        input(name="video" type="file" id="video" accept="video/*" required) 
         input(name="title" placeholder="Title" type="text" required)
         input(name="hashtags" placeholder="Hashtags, separated by comma" type="text" required)
         textarea(name="description" placeholder="Description" required)
