@@ -275,6 +275,18 @@ export const handleDelete = (req, res) => {
   return res.send("Delete");
 };
 
-export const handleId = (req, res) => {
-  return res.send("Delete");
+export const handleId = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  if (!user) {
+    res.render("users/user-profile", {
+      pageTitle: "Not Exists User",
+    });
+  }
+
+  return res.render("users/user-profile", {
+    pageTitle: user.username,
+    user,
+  });
 };

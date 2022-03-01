@@ -25,7 +25,7 @@ html(lang="en")
                         li 
                             a(href="/users/edit-profile") Edit Profile &rarr; 
                         li 
-                            a(href="/users/edit-profile") #{loggedInUser.username}의 profile &rarr;
+                            a(href=`/users/${loggedInUser._id}`) #{loggedInUser.username}의 profile &rarr;
                          
                             
                     else
