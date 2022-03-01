@@ -205,7 +205,6 @@ export const handlePostEdit = async (req, res) => {
       errorMessage,
     });
   } else {
-    console.log(file);
     const updateUser = await User.findOneAndUpdate(
       email,
       {
