@@ -1,6 +1,7 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
+import Video from "../models/Video";
 
 export const handleJoin = (req, res) => {
   return res.render("join", { pageTitle: "Join" });
@@ -278,6 +279,7 @@ export const handleDelete = (req, res) => {
 export const handleId = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
+  const videos = await Video.find({ owner: user.id });
 
   if (!user) {
     res.render("users/user-profile", {
@@ -288,5 +290,6 @@ export const handleId = async (req, res) => {
   return res.render("users/user-profile", {
     pageTitle: user.username,
     user,
+    videos,
   });
 };

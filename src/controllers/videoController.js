@@ -2,13 +2,9 @@ import User from "../models/User";
 import Video from "../models/Video";
 
 export const handleHome = async (req, res) => {
-  const videos = await Video.find({}).sort({ createdAt: "desc" });
-  // const owners = videos.map(async (video) => {
-  //   const owner = await User.findById(video.owner);
-  //   console.log(owner);
-  //   return owner.email;
-  // });
-  // console.log(owners);
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
   return res.render("home", { pageTitle: "Home", videos });
 };
 
@@ -27,8 +23,7 @@ export const handleSearch = async (req, res) => {
 
 export const handleWatch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
-  const owner = await User.findById(video.owner);
+  const video = await Video.findById(id).populate("owner");
 
   if (video === null) {
     return res.render("404", { pageTitle: "Video not found." });
@@ -36,7 +31,6 @@ export const handleWatch = async (req, res) => {
     return res.render("videos/watch", {
       pageTitle: video.title,
       video,
-      owner,
     });
   }
 };

@@ -1,4 +1,5 @@
 extends ../base
+include ../mixins/video
 
 block content
     img(src=`/${user.avatarUrl}`, alt="#" width="100" height="100")    
@@ -6,3 +7,8 @@ block content
     h2 User Name : #{user.username} 
     h2 Email : #{user.email}
     h2 Location : #{user.location}
+
+    each info in videos
+        +video(info)
+    else 
+        li Sorry nothing found.

@@ -6,7 +6,8 @@ mixin video(video)
         p=video.description
         small=video.createdAt
         br
-        small=video.owner
+        small Created by 
+            a(href=`/users/${video.owner.id}`)=video.owner.username
         each hashtag in video.hashtags
             p=hashtag
                 

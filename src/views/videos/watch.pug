@@ -9,9 +9,7 @@ block content
             +video(video)
         else
             p Not Found
-        small Created by #{owner.username}
-        br
-        if loggedInUser && ( String(video.owner) === String(loggedInUser._id) ) 
+        if loggedInUser && ( String(video.owner._id) === String(loggedInUser._id) ) 
             a(href=`${video.id}/edit`) Edit Video &rarr;
             br
             a(href=`${video.id}/delete`) Delete Video &rarr;
