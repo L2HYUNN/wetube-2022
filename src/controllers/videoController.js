@@ -1,7 +1,14 @@
+import User from "../models/User";
 import Video from "../models/Video";
 
 export const handleHome = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
+  // const owners = videos.map(async (video) => {
+  //   const owner = await User.findById(video.owner);
+  //   console.log(owner);
+  //   return owner.email;
+  // });
+  // console.log(owners);
   return res.render("home", { pageTitle: "Home", videos });
 };
 
@@ -21,13 +28,15 @@ export const handleSearch = async (req, res) => {
 export const handleWatch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
+  const owner = await User.findById(video.owner);
 
   if (video === null) {
     return res.render("404", { pageTitle: "Video not found." });
   } else {
     return res.render("videos/watch", {
-      pageTitle: `Watching ${video.title}`,
+      pageTitle: video.title,
       video,
+      owner,
     });
   }
 };
@@ -76,14 +85,18 @@ export const handlePostUpload = async (req, res) => {
   const {
     body: { title, description, hashtags },
     file: { path: videoUrl },
+    session: {
+      user: { _id },
+    },
   } = req;
-  console.log(path);
+
   try {
     await Video.create({
       videoUrl,
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
+      owner: _id,
     });
     return res.redirect("/");
   } catch (e) {

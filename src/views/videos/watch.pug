@@ -3,12 +3,17 @@ include ../mixins/video
 
 block content
     h3 #{video.views === 1 ? `${video.views} view` : `${video.views} views`} 
-    a(href=`${video.id}/edit`) Edit Video &rarr;
-    br
-    a(href=`${video.id}/delete`) Delete Video &rarr;
+    
     ul
         if video
             +video(video)
         else
             p Not Found
-    a(href="/") Home &rarr;
+        small Created by #{owner.username}
+        br
+        if loggedInUser && ( String(video.owner) === String(loggedInUser._id) ) 
+            a(href=`${video.id}/edit`) Edit Video &rarr;
+            br
+            a(href=`${video.id}/delete`) Delete Video &rarr;
+            br
+            a(href="/") Home &rarr;

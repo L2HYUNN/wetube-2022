@@ -3,6 +3,7 @@ include ../mixins/video
 
 block content
     h2 Edit Video 
+    video(src=`/${video.videoUrl}` controls) 
     form(method="POST") 
         input(name="title" placeholder="Title" type="text" value=video.title required)
         input(name="hashtags" placeholder="Hashtags, separated by comma" type="text" value=video.hashtags.join() required)

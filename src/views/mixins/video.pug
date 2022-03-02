@@ -5,6 +5,8 @@ mixin video(video)
         video(src=`/${video.videoUrl}` controls) 
         p=video.description
         small=video.createdAt
+        br
+        small=video.owner
         each hashtag in video.hashtags
             p=hashtag
                 
