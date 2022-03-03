@@ -85,13 +85,16 @@ export const handlePostUpload = async (req, res) => {
   } = req;
 
   try {
-    await Video.create({
+    const newVideo = await Video.create({
       videoUrl,
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
       owner: _id,
     });
+    const user = await User.findById(_id);
+    user.videos.push(newVideo._id);
+    user.save();
     return res.redirect("/");
   } catch (e) {
     return res.status(400).render("videos/upload", {

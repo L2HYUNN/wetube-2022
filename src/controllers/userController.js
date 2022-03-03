@@ -278,8 +278,8 @@ export const handleDelete = (req, res) => {
 
 export const handleId = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id);
-  const videos = await Video.find({ owner: user.id });
+  const user = await User.findById(id).populate("videos");
+  const videos = user.videos;
 
   if (!user) {
     res.render("users/user-profile", {
