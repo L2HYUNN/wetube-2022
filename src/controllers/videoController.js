@@ -38,6 +38,15 @@ export const handleWatch = async (req, res) => {
 export const handleEdit = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
+  const {
+    session: {
+      user: { _id: sessionUserId },
+    },
+  } = req;
+
+  if (String(video.owner) !== String(sessionUserId)) {
+    return res.status(403).render("404", { pageTitle: "Wrong Excess." });
+  }
   // need Regexp only letter and number?
 
   if (!video) {
@@ -53,21 +62,57 @@ export const handleEdit = async (req, res) => {
 export const handlePostEdit = async (req, res) => {
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const {
+    session: {
+      user: { _id: sessionUserId },
+    },
+  } = req;
+
+  const video = await Video.findById(id);
+
+  if (String(video.owner) !== String(sessionUserId)) {
+    return res.status(403).render("404", { pageTitle: "Wrong Excess." });
+  }
+
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
+
   await Video.findByIdAndUpdate(id, {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
+
   return res.redirect(`/videos/${id}`);
 };
 
 export const handleDelete = async (req, res) => {
   const { id } = req.params;
+  const {
+    session: {
+      user: { _id: sessionUserId },
+    },
+  } = req;
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.render("404", { pageTitle: "Video not found." });
+  }
+
+  if (String(video.owner) !== String(sessionUserId)) {
+    return res.status(403).render("404", { pageTitle: "Wrong Excess." });
+  }
+
   await Video.findByIdAndDelete(id);
+
+  const user = await User.findById(sessionUserId);
+  const newVideos = user.videos.filter((videoId) => {
+    return String(videoId) !== String(id);
+  });
+  user.videos = newVideos;
+  await user.save();
+
   return res.redirect("/");
 };
 

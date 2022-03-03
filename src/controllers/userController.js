@@ -236,7 +236,7 @@ export const handleChangePassword = (req, res) => {
 };
 export const handlePostChangePassword = async (req, res) => {
   const { currentPassword, newPassword, newPasswordConfimation } = req.body;
-  const { password: sessionPassword, email } = req.session.user;
+  const { password: sessionPassword, _id } = req.session.user;
   const passwordExists = await bcrypt.compare(currentPassword, sessionPassword);
 
   if (newPassword !== newPasswordConfimation) {
@@ -259,14 +259,9 @@ export const handlePostChangePassword = async (req, res) => {
       errorMessage: "Check your Current Password.",
     });
   }
-  const hashedPassword = await bcrypt.hash(newPassword, 5);
-  await User.findOneAndUpdate(
-    email,
-    {
-      password: hashedPassword,
-    },
-    { new: true }
-  );
+  const user = await User.findById(_id);
+  user.password = newPassword;
+  await user.save();
   console.log("Password Changing Success ✅");
   req.session.destroy();
   return res.redirect("/login");
