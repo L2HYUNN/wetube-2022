@@ -3,11 +3,10 @@ include ../mixins/video
 
 block content
     div.profile__data
-        img(src=`/${user.avatarUrl}`, alt="#").avatar    
-        h3 #{user.name}    
-        h2 User Name : #{user.username} 
-        h2 Email : #{user.email}
-        h2 Location : #{user.location}
+        img(src=`/${user.avatarUrl}`, alt="").avatar       
+        h2 #{user.username} 
+        h2 #{user.email}
+    
 
     div.video-grid
         each info in videos

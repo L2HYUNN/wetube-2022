@@ -1,22 +1,27 @@
 header 
-  a(href="/").header__logo
-    i.fa-brands.fa-youtube
-  nav 
-            ul 
+    a(href="/").header__logo
+        i.fa-brands.fa-youtube
+    nav 
+        ul 
+            li 
+                a(href="/search")
+                    i.fas.fa-search
+            if loggedIn
                 li 
-                    a(href="/search")
-                      i.fas.fa-search
-                if loggedIn
-                    li 
-                        a(href="/videos/upload") Upload Video 
-                    li 
-                        a(href=`/users/${loggedInUser._id}`) My profile 
-                    li 
-                        a(href="/users/edit-profile") Edit Profile  
-                    li 
-                        a(href="/users/logout") Log Out 
-                else
-                    li 
-                        a(href="/login") Login  
-                    li 
-                        a(href="/join").header__btn Join 
+                    a(href="/videos/upload") Upload Video             
+                li 
+                    a(href="/users/edit-profile") Edit Profile  
+                li 
+                    a(href="/users/logout") Log Out 
+                li 
+                    if !loggedInUser.avatarUrl
+                        a(href=`/users/${loggedInUser._id}`) ❌
+                    else
+                        a(href=`/users/${loggedInUser._id}`)
+                            img(src=`/${loggedInUser.avatarUrl}`, alt="").header__avatar
+                        
+            else
+                li 
+                    a(href="/login") Login  
+                li 
+                    a(href="/join").header__btn Join 

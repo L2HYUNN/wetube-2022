@@ -219,7 +219,7 @@ export const handlePostEdit = async (req, res) => {
     );
 
     req.session.user = updateUser;
-    return res.redirect("/users/edit-profile");
+    return res.redirect(`/users/${updateUser.id}`);
   }
 
   // req.session.user = {
@@ -273,7 +273,13 @@ export const handleDelete = (req, res) => {
 
 export const handleId = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path: "videos",
+    populate: {
+      path: "owner",
+      model: "User",
+    },
+  });
   const videos = user.videos;
 
   if (!user) {
