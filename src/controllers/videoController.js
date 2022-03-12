@@ -16,7 +16,7 @@ export const handleSearch = async (req, res) => {
       title: {
         $regex: new RegExp(keyword, "i"),
       },
-    });
+    }).populate("owner");
   }
   return res.render("videos/search", { pageTitle: "Search Video", videos });
 };
