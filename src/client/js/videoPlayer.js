@@ -3,7 +3,8 @@ console.log("video player");
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
-const time = document.getElementById("time");
+const currentTime = document.getElementById("currentTime");
+const totalTime = document.getElementById("TotalTime");
 const volumeRange = document.getElementById("volume");
 
 let volume;
@@ -51,6 +52,17 @@ const inputVolumeRange = (event) => {
   }
 };
 
+const referLoadedMetaData = () => {
+  totalTime.innerText = `0:${Math.floor(video.duration)}`;
+};
+const currentTimeUpdate = () => {
+  currentTime.innerText = Math.floor(video.currentTime);
+};
+
 playBtn.addEventListener("click", clickedPlayBtn);
 muteBtn.addEventListener("click", clickedMuteBtn);
 volumeRange.addEventListener("input", inputVolumeRange);
+video.addEventListener("loadedmetadata", referLoadedMetaData);
+video.addEventListener("timeupdate", currentTimeUpdate);
+// currentTime.addEventListener("", )
+// totalTime
