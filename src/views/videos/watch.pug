@@ -2,16 +2,19 @@ extends ../base
 include ../mixins/video
 
 block content
-    h3 #{video.views === 1 ? `${video.views} view` : `${video.views} views`} 
+    //- h3 #{video.views === 1 ? `${video.views} view` : `${video.views} views`} 
     
     ul
         if video
             +video(video)
         else
             p Not Found
-        if loggedInUser && ( String(video.owner._id) === String(loggedInUser._id) ) 
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
-            br
-            a(href="/") Home &rarr;
+        //- if loggedInUser && ( String(video.owner._id) === String(loggedInUser._id) ) 
+        //-     a(href=`${video.id}/edit`) Edit Video &rarr;
+        //-     br
+        //-     a(href=`${video.id}/delete`) Delete Video &rarr;
+        //-     br
+        //-     a(href="/") Home &rarr;
+
+block scripts 
+    script(src="/static/js/videoPlayer.js")
