@@ -6,7 +6,7 @@ mixin video(video)
             div.video-mixin__meta
                 span #{video.owner.name} • 
                 span #{video.meta.views} views
-        //- video(src=`/${video.videoUrl}` controls) 
+        video(src=`/${video.videoUrl}` controls) 
         //- p=video.description
         //- small=video.createdAt
         //- br
