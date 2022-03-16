@@ -1,5 +1,3 @@
-console.log("video player");
-
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
@@ -52,11 +50,15 @@ const inputVolumeRange = (event) => {
   }
 };
 
+const formatTime = (seconds) => {
+  return new Date(seconds * 1000).toISOString().substring(11, 19);
+};
+
 const referLoadedMetaData = () => {
-  totalTime.innerText = `0:${Math.floor(video.duration)}`;
+  totalTime.innerText = formatTime(Math.floor(video.duration));
 };
 const currentTimeUpdate = () => {
-  currentTime.innerText = Math.floor(video.currentTime);
+  currentTime.innerText = formatTime(Math.floor(video.currentTime));
 };
 
 playBtn.addEventListener("click", clickedPlayBtn);
