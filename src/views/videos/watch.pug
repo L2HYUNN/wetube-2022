@@ -5,7 +5,7 @@ block content
     //- h3 #{video.views === 1 ? `${video.views} view` : `${video.views} views`} 
     div#videoContainer
         video(src=`/${video.videoUrl}`, controls) 
-        div
+        div#videoControls
             button#play Play
             button#mute Mute        
             div#time 
