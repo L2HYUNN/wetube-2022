@@ -148,3 +148,16 @@ export const handlePostUpload = async (req, res) => {
     });
   }
 };
+
+export const registerView = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.status(404);
+  }
+  video.meta.views += 1;
+  await video.save();
+  return res.status(200);
+};
