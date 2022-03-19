@@ -1,3 +1,5 @@
+const { default: fetch } = require("node-fetch");
+
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
@@ -164,6 +166,12 @@ const mouseMovedVideo = () => {
 const mouseLeavedVideo = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
+const endedVideo = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/views`, {
+    method: "POST",
+  });
+};
 
 playBtn.addEventListener("click", clickedPlayBtn);
 muteBtn.addEventListener("click", clickedMuteBtn);
@@ -175,6 +183,7 @@ timeline.addEventListener("input", inputTimelineChange);
 fullScreenBtn.addEventListener("click", clickedFullScreenBtn);
 videoContainer.addEventListener("mousemove", mouseMovedVideo);
 videoContainer.addEventListener("mouseleave", mouseLeavedVideo);
+video.addEventListener("ended", endedVideo);
 
 // currentTime.addEventListener("", )
 // totalTime
