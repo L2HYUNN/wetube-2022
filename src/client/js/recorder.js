@@ -1,9 +1,15 @@
 const startBtn = document.getElementById("startBtn");
 const video = document.getElementById("preview");
 
-let stream, recorder;
+let stream, recorder, videoFile;
 
-const videoDownload = () => {};
+const videoDownload = () => {
+  const a = document.createElement("a");
+  a.href = videoFile;
+  a.download = "VideoFile.webm";
+  document.body.appendChild(a);
+  a.click();
+};
 
 const clickedStopRecordBtn = () => {
   startBtn.innerText = "Download Recording";
@@ -19,7 +25,7 @@ const clickedRecordBtn = () => {
 
   recorder = new MediaRecorder(stream);
   recorder.ondataavailable = (event) => {
-    const videoFile = URL.createObjectURL(event.data);
+    videoFile = URL.createObjectURL(event.data);
     video.srcObject = null;
     video.src = videoFile;
     video.loop = true;
@@ -37,6 +43,6 @@ const init = async () => {
   video.play();
 };
 
-// init();
+init();
 
 startBtn.addEventListener("click", clickedRecordBtn);
