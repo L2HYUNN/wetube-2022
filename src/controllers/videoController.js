@@ -123,7 +123,7 @@ export const handleUpload = (req, res) => {
 export const handlePostUpload = async (req, res) => {
   const {
     body: { title, description, hashtags },
-    file: { path: videoUrl },
+    files: { video, thumb },
     session: {
       user: { _id },
     },
@@ -131,7 +131,8 @@ export const handlePostUpload = async (req, res) => {
 
   try {
     const newVideo = await Video.create({
-      videoUrl,
+      videoUrl: video[0].path,
+      thumbUrl: thumb[0].path,
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),

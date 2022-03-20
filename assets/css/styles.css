@@ -233,7 +233,8 @@ label {
   margin-bottom: 15px;
 }
 
-input:not([type=range]) {
+input:not([type=range]),
+input[type=submit] {
   all: unset;
   padding: 15px 20px;
   border-radius: 5px;
@@ -244,7 +245,8 @@ input:not([type=range]) {
   color: white;
   width: 90%;
 }
-input:not([type=range])::placeholder {
+input:not([type=range])::placeholder,
+input[type=submit]::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -254,10 +256,20 @@ input[type=submit],
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: block;
   padding: 15px 20px;
-  background-color: white;
-  background-color: rgba(255, 19, 0, 0.9);
-  text-align: center;
+  color: white !important;
+  background-color: rgba(255, 19, 0, 0.9) !important;
+  text-align: center !important;
   cursor: pointer;
+  border: none;
+}
+input[type=submit]:focus,
+.social__btn:focus {
+  outline: none;
+}
+input[type=submit]:disabled,
+.social__btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 textarea {
@@ -392,6 +404,20 @@ textarea::placeholder {
 .edit-profile__password {
   margin-top: 50px;
   text-align: center;
+}
+
+.upload__container {
+  width: 100%;
+}
+.upload__container .upload__video {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.upload__container .upload__video video {
+  max-width: 100%;
+  margin-bottom: 10px;
 }
 
 video {

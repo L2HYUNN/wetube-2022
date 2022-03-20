@@ -13,7 +13,8 @@ label {
   margin-bottom: 15px;
 }
 
-input:not([type="range"]) {
+input:not([type="range"]),
+input[type="submit"] {
   all: unset;
   padding: 15px 20px;
   border-radius: 5px;
@@ -34,10 +35,18 @@ input[type="submit"],
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: block;
   padding: 15px 20px;
-  background-color: white;
-  background-color: rgba($color: $red, $alpha: 0.9);
-  text-align: center;
+  color: white !important;
+  background-color: rgba($color: $red, $alpha: 0.9) !important;
+  text-align: center !important;
   cursor: pointer;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 textarea {
