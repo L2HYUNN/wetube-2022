@@ -3,10 +3,12 @@ const video = document.getElementById("preview");
 
 let stream, recorder;
 
+const videoDownload = () => {};
+
 const clickedStopRecordBtn = () => {
-  startBtn.innerText = "Start Recording";
+  startBtn.innerText = "Download Recording";
   startBtn.removeEventListener("click", clickedStopRecordBtn);
-  startBtn.addEventListener("click", clickedRecordBtn);
+  startBtn.addEventListener("click", videoDownload);
   recorder.stop();
 };
 
@@ -16,6 +18,13 @@ const clickedRecordBtn = () => {
   startBtn.addEventListener("click", clickedStopRecordBtn);
 
   recorder = new MediaRecorder(stream);
+  recorder.ondataavailable = (event) => {
+    const videoFile = URL.createObjectURL(event.data);
+    video.srcObject = null;
+    video.src = videoFile;
+    video.loop = true;
+    video.play();
+  };
   recorder.start();
 };
 
