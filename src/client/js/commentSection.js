@@ -20,6 +20,7 @@ const handleCommentSubmit = (event) => {
       text,
     }),
   });
+  textarea.value = "";
 };
 
 if (form) {
