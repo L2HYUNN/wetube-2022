@@ -38,7 +38,7 @@ const keydownExitFullScreen = (e) => {
 };
 
 const keydownPlayVideo = (e) => {
-  if (e.code === "Space") {
+  if (e.code === "Space" && e.target === document.body) {
     video.play();
     playBtnIcon.classList = "fas fa-pause";
     activeVideo.removeEventListener("keydown", keydownPlayVideo);
@@ -47,7 +47,8 @@ const keydownPlayVideo = (e) => {
 };
 
 const keydownPauseVideo = (e) => {
-  if (e.code === "Space") {
+  if (e.code === "Space" && e.target === document.body) {
+    console.log(e.target);
     video.pause();
     playBtnIcon.classList = "fas fa-play";
     activeVideo.removeEventListener("keydown", keydownPauseVideo);
