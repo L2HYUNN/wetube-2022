@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -50,6 +51,7 @@ app.use(
 //   return res.send(`${req.session.id}`);
 // })
 
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/", globalRouter);
 app.use("/users", userRouter);

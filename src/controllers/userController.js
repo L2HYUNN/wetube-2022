@@ -157,6 +157,7 @@ export const handleFinishGithubLogin = async (req, res) => {
 
 export const handleLogout = (req, res) => {
   req.session.destroy();
+  req.flash("info", "Bad Bye");
   return res.redirect("/");
 };
 
@@ -264,6 +265,7 @@ export const handlePostChangePassword = async (req, res) => {
   await user.save();
   console.log("Password Changing Success ✅");
   req.session.destroy();
+  req.flash("info", "Password Updated");
   return res.redirect("/login");
 };
 
@@ -283,7 +285,7 @@ export const handleId = async (req, res) => {
   const videos = user.videos;
 
   if (!user) {
-    res.render("users/user-profile", {
+    res.status(404).render("users/user-profile", {
       pageTitle: "Not Exists User",
     });
   }

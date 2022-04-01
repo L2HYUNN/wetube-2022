@@ -101,6 +101,7 @@ export const handleDelete = async (req, res) => {
   }
 
   if (String(video.owner) !== String(sessionUserId)) {
+    req.flash("error", "Not authorized");
     return res.status(403).render("404", { pageTitle: "Wrong Excess." });
   }
 
