@@ -156,8 +156,8 @@ export const handleFinishGithubLogin = async (req, res) => {
 };
 
 export const handleLogout = (req, res) => {
-  req.session.destroy();
   req.flash("info", "Bad Bye");
+  req.session.destroy();
   return res.redirect("/");
 };
 
