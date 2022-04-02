@@ -3,7 +3,7 @@ const { default: fetch } = require("node-fetch");
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 
-const handleCommentSubmit = (event) => {
+const handleCommentSubmit = async (event) => {
   event.preventDefault();
   const textarea = form.querySelector("textarea");
   const text = textarea.value;
@@ -11,7 +11,7 @@ const handleCommentSubmit = (event) => {
   if (text === "") {
     return;
   }
-  fetch(`/api/videos/${videoId}/comment`, {
+  await fetch(`/api/videos/${videoId}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,6 +21,7 @@ const handleCommentSubmit = (event) => {
     }),
   });
   textarea.value = "";
+  window.location.reload();
 };
 
 if (form) {
