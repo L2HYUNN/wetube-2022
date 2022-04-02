@@ -3,9 +3,10 @@ const { default: fetch } = require("node-fetch");
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 
-const addComment = (text) => {
+const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
+  newComment.dataset.id = id;
   newComment.className = "video__comment";
   const icon = document.createElement("i");
   icon.className = "fas fa-comment";
@@ -24,7 +25,7 @@ const handleCommentSubmit = async (event) => {
   if (text === "") {
     return;
   }
-  const { status } = await fetch(`/api/videos/${videoId}/comment`, {
+  const response = await fetch(`/api/videos/${videoId}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,8 +35,9 @@ const handleCommentSubmit = async (event) => {
     }),
   });
   textarea.value = "";
-  if (status === 201) {
-    addComment(text);
+  const { newCommentId } = await response.json();
+  if (response.status === 201) {
+    addComment(text, newCommentId);
   }
   window.location.reload();
 };
