@@ -19,17 +19,36 @@
   }
 }
 .video__comments {
+  position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  max-width: 500px;
   width: 100%;
   margin: 0 auto;
   margin-top: 20px;
   .video__comment {
     padding: 10px;
     border-radius: 9999px;
+    height: 100%;
     background-color: white;
     color: black;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    #comment {
+      position: absolute;
+      left: 10px;
+    }
+    span {
+      margin-left: 30px;
+      display: block;
+      max-width: 440px;
+      height: 100%;
+    }
+    #delete {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+    }
   }
 }

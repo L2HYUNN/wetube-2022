@@ -442,9 +442,10 @@ textarea::placeholder {
 }
 
 .video__comments {
+  position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  max-width: 500px;
   width: 100%;
   margin: 0 auto;
   margin-top: 20px;
@@ -452,9 +453,27 @@ textarea::placeholder {
 .video__comments .video__comment {
   padding: 10px;
   border-radius: 9999px;
+  height: 100%;
   background-color: white;
   color: black;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.video__comments .video__comment #comment {
+  position: absolute;
+  left: 10px;
+}
+.video__comments .video__comment span {
+  margin-left: 30px;
+  display: block;
+  max-width: 440px;
+  height: 100%;
+}
+.video__comments .video__comment #delete {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 }
 
 video {
