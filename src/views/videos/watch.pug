@@ -3,7 +3,7 @@ include ../mixins/video
 
 block content
     //- h3 #{video.views === 1 ? `${video.views} view` : `${video.views} views`} 
-    div#videoContainer(data-id=video._id)
+    div#videoContainer(data-id=video.id)
         if isHeroku
             video(src=`${video.videoUrl}` crossorigin) 
         else
@@ -27,9 +27,9 @@ block content
     div.video__data
         p.video__title=video.title
         small.video__owner Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
+            a(href=`/users/${video.owner.id}`)=video.owner.name
         small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
-        if String(video.owner._id) === String(loggedInUser._id)
+        if String(video.owner.id) === String(loggedInUser.id)
             a(href=`${video.id}/edit`) Edit Video &rarr;
             br
             a(href=`${video.id}/delete`) Delete Video &rarr;
@@ -44,7 +44,7 @@ block content
                 li.video__comment(data-id=comment.id)
                     i.fas.fa-comment#comment
                     span #{comment.text}
-                    if String(loggedInUser._id) === String(comment.owner._id)
+                    if String(loggedInUser.id) === String(comment.owner.id)
                         i.fa-solid.fa-delete-left#delete
 
 block scripts 
