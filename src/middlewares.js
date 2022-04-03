@@ -9,11 +9,19 @@ const s3 = new aws.S3({
   },
 });
 
-const multerUploader = multerS3({
+const s3ImangeUploader = multerS3({
   s3: s3,
-  bucket: "wetube-reloded-2022",
+  bucket: "wetube-reloded-2022/images",
   acl: "public-read",
 });
+
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: "wetube-reloded-2022/videos",
+  acl: "public-read",
+});
+
+const isHeroku = process.env.NODE_ENV === "production";
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "Wetube";
@@ -21,6 +29,7 @@ export const localsMiddleware = (req, res, next) => {
   if (res.locals.loggedIn) {
     res.locals.loggedInUser = req.session.user || {};
   }
+  res.locals.isHeroku = isHeroku;
   next();
 };
 
@@ -59,7 +68,7 @@ export const avatarUploadFiles = multer({
   limits: {
     fileSize: 3000000,
   },
-  storage: multerUploader,
+  storage: isHeroku ? s3ImangeUploader : undefined,
 });
 
 export const videoUploadFiles = multer({
@@ -67,5 +76,15 @@ export const videoUploadFiles = multer({
   limits: {
     fileSize: 10000000000,
   },
-  storage: multerUploader,
+  storage: isHeroku ? s3VideoUploader : undefined,
 });
+
+// export const s3DeleteAvatarMiddleware = (req, res, next) => {
+//   if(!req.file) {
+//     return next();
+//   }
+//   s3.deleteObject({
+//     Bucket: "wetube-reloded-2022",
+
+//   })
+// }

@@ -17,12 +17,12 @@ header
                     if !loggedInUser.avatarUrl
                         a(href=`/users/${loggedInUser._id}`) ❌
                     else
-                        if loggedInUser.socialOnly
+                        if loggedInUser.avatarUrl.includes("github") || isHeroku
                             a(href=`/users/${loggedInUser._id}`)
                                 img(src=`${loggedInUser.avatarUrl}` crossorigin).header__avatar
                         else
                             a(href=`/users/${loggedInUser._id}`)
-                                img(src=`${loggedInUser.avatarUrl}` crossorigin).header__avatar
+                                img(src=`/${loggedInUser.avatarUrl}` crossorigin).header__avatar
             else
                 li 
                     a(href="/login") Login  

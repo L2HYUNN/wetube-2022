@@ -117,6 +117,8 @@ const inputVolumeRange = (event) => {
 };
 
 const formatTime = (seconds) => {
+  console.log(seconds);
+  console.log(new Date(seconds * 1000));
   return new Date(seconds * 1000).toISOString().substring(11, 19);
 };
 
@@ -186,7 +188,7 @@ videoContainer.addEventListener("mousemove", mouseMovedVideo);
 videoContainer.addEventListener("mouseleave", mouseLeavedVideo);
 video.addEventListener("ended", endedVideo);
 
-referLoadedMetaData();
+// referLoadedMetaData();
 
 // currentTime.addEventListener("", )
 // totalTime

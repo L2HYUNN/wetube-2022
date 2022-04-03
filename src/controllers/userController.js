@@ -189,6 +189,8 @@ export const handlePostEdit = async (req, res) => {
     file,
   } = req;
 
+  const isHeroku = process.env.NODE_ENV === "production";
+
   let errorMessage = null;
 
   if (name !== sessionName) {
@@ -210,7 +212,7 @@ export const handlePostEdit = async (req, res) => {
     const updateUser = await User.findOneAndUpdate(
       email,
       {
-        avatarUrl: file ? file.location : avatarUrl,
+        avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
         name,
         email,
         username,
