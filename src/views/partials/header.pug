@@ -19,10 +19,10 @@ header
                     else
                         if loggedInUser.socialOnly
                             a(href=`/users/${loggedInUser._id}`)
-                                img(src=`${loggedInUser.avatarUrl}`, alt="").header__avatar
+                                img(src=`${loggedInUser.avatarUrl}` crossorigin).header__avatar
                         else
                             a(href=`/users/${loggedInUser._id}`)
-                                img(src=`/${loggedInUser.avatarUrl}`, alt="").header__avatar
+                                img(src=`${loggedInUser.avatarUrl}` crossorigin).header__avatar
             else
                 li 
                     a(href="/login") Login  

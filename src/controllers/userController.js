@@ -210,7 +210,7 @@ export const handlePostEdit = async (req, res) => {
     const updateUser = await User.findOneAndUpdate(
       email,
       {
-        avatarUrl: file ? file.path : avatarUrl,
+        avatarUrl: file ? file.location : avatarUrl,
         name,
         email,
         username,

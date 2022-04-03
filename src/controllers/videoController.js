@@ -26,6 +26,8 @@ export const handleWatch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
 
+  // console.log(video);
+
   if (video === null) {
     return res.render("404", { pageTitle: "Video not found." });
   } else {
@@ -133,8 +135,8 @@ export const handlePostUpload = async (req, res) => {
 
   try {
     const newVideo = await Video.create({
-      videoUrl: video[0].path,
-      thumbUrl: thumb[0].path,
+      videoUrl: video[0].location,
+      thumbUrl: thumb[0].location,
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
