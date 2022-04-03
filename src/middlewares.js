@@ -19,6 +19,7 @@ const s3VideoUploader = multerS3({
   s3: s3,
   bucket: "wetube-reloded-2022/videos",
   acl: "public-read",
+  contentType: multerS3.AUTO_CONTENT_TYPE,
 });
 
 const isHeroku = process.env.NODE_ENV === "production";
