@@ -17,9 +17,12 @@ header
                     if !loggedInUser.avatarUrl
                         a(href=`/users/${loggedInUser._id}`) ❌
                     else
-                        a(href=`/users/${loggedInUser._id}`)
-                            img(src=`/${loggedInUser.avatarUrl}`, alt="").header__avatar
-                        
+                        if loggedInUser.socialOnly
+                            a(href=`/users/${loggedInUser._id}`)
+                                img(src=`${loggedInUser.avatarUrl}`, alt="").header__avatar
+                        else
+                            a(href=`/users/${loggedInUser._id}`)
+                                img(src=`/${loggedInUser.avatarUrl}`, alt="").header__avatar
             else
                 li 
                     a(href="/login") Login  
