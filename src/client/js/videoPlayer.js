@@ -188,7 +188,7 @@ videoContainer.addEventListener("mousemove", mouseMovedVideo);
 videoContainer.addEventListener("mouseleave", mouseLeavedVideo);
 video.addEventListener("ended", endedVideo);
 
-// referLoadedMetaData();
+referLoadedMetaData();
 
 // currentTime.addEventListener("", )
 // totalTime
