@@ -177,7 +177,7 @@ const endedVideo = () => {
 playBtn.addEventListener("click", clickedPlayBtn);
 muteBtn.addEventListener("click", clickedMuteBtn);
 volumeRange.addEventListener("input", inputVolumeRange);
-video.addEventListener("loadedmetadata", referLoadedMetaData);
+video.addEventListener("canplay", referLoadedMetaData);
 video.addEventListener("timeupdate", currentTimeUpdate);
 video.addEventListener("click", clickedVideo);
 timeline.addEventListener("input", inputTimelineChange);
@@ -185,6 +185,8 @@ fullScreenBtn.addEventListener("click", clickedFullScreenBtn);
 videoContainer.addEventListener("mousemove", mouseMovedVideo);
 videoContainer.addEventListener("mouseleave", mouseLeavedVideo);
 video.addEventListener("ended", endedVideo);
+
+referLoadedMetaData();
 
 // currentTime.addEventListener("", )
 // totalTime
